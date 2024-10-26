@@ -11,6 +11,6 @@ class Customer {
 
   @override
   String toString() {
-    return '===== Customer =====\n Customer ID: $customerId\n Customer Name: $name\n Contact: $phone\n';
+    return '===== Customer =====\n Customer ID: $customerId\n Customer Name: $name\n Contact: $phone';
   }
 }

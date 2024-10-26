@@ -28,7 +28,8 @@ class Order {
   List<MenuItem> get items => _items;
   Status get orderStatus => _orderStatus;
 
-  Order(this._customerId, this._id, this._date, this._orderStatus);
+  Order(this._customerId, this._id, this._date,
+      [this._orderStatus = Status.Unpaid]);
 
   void addItem(MenuItem item) {
     _items.add(item);

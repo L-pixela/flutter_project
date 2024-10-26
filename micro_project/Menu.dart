@@ -47,4 +47,11 @@ class Menu {
       return null;
     }
   }
+
+  void displayMenu() {
+    print("Menu");
+    for (var item in _items) {
+      print(item);
+    }
+  }
 }

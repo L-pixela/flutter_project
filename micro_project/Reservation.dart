@@ -13,6 +13,6 @@ class Reservation {
 
   @override
   String toString() {
-    return '===== Reservation =====\n Rerservation ID: $id\n Customer ID: $customerId\n Table Number: $tableNumber\n Time: $time\n People: $numberOfPeople\n ';
+    return '===== Reservation =====\n Rerservation ID: $id\n Customer ID: $customerId\n Table Number: $tableNumber\n Time: $time\n People: $numberOfPeople';
   }
 }
