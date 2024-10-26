@@ -12,7 +12,7 @@ void main() {
       Reservation(1, customer.customerId, 5, DateTime.now(), 4);
 
   // Step 3: Create an order and link it to the reservation
-  Order order = Order(customer, 1, DateTime.now(), Status.Pending);
+  Order order = Order(customer.customerId, 1, DateTime.now(), Status.Pending);
   Menu menu = Menu();
   MenuItem? item1 = menu.getItemById(1);
   MenuItem? item2 = menu.getItemById(2);

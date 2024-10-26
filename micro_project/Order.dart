@@ -2,17 +2,27 @@ import 'Customer.dart';
 import 'Menu.dart';
 import 'Reservation.dart';
 
-enum Status { Paid, Pending, Unpaid }
+enum Status {
+  Paid("Paid"),
+  Pending("Pending"),
+  Unpaid("Unpaid");
+
+  final String _status;
+  String get status => _status;
+  const Status(this._status);
+  @override
+  String toString() => status;
+}
 
 class Order {
-  final Customer _customerId;
+  final int _customerId;
   final int _id;
   final DateTime _date;
   final List<MenuItem> _items = [];
   Status _orderStatus;
   Reservation? reservation;
 
-  Customer get customerId => _customerId;
+  int get customerId => _customerId;
   int get id => _id;
   DateTime get date => _date;
   List<MenuItem> get items => _items;
@@ -38,6 +48,6 @@ class Order {
 
   @override
   String toString() {
-    return 'Order(id: $id, customer ID: $customerId, date: $date, items: $items, status: $orderStatus, totalPrice: \$${totalPrice.toStringAsFixed(2)})';
+    return '===== Order =====\n Order ID: $id\n Customer ID: $customerId\n Date: $date\n===== Ordered Menu =====  ${_items.join(' \n==================')}\n===== Total =====\nPrice: \$${totalPrice.toStringAsFixed(2)}\n===== Status ===== \n$orderStatus\n';
   }
 }

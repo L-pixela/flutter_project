@@ -22,6 +22,11 @@ class MenuItem {
   int get id => _id;
 
   MenuItem(this._id, this._name, this._category, this._price);
+
+  @override
+  String toString() {
+    return '\nItem ID: $id\n Name: $name\n Category: $category\n Price: \$$price';
+  }
 }
 
 class Menu {
