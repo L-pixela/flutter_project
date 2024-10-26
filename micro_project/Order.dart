@@ -1,5 +1,6 @@
 import 'Customer.dart';
 import 'Menu.dart';
+import 'Reservation.dart';
 
 enum Status { Paid, Pending, Unpaid }
 
@@ -9,6 +10,7 @@ class Order {
   final DateTime _date;
   final List<MenuItem> _items = [];
   Status _orderStatus;
+  Reservation? reservation;
 
   Customer get customerId => _customerId;
   int get id => _id;
@@ -26,7 +28,16 @@ class Order {
     _items.remove(item);
   }
 
-  void set updateStatus(Status status) => _orderStatus = status;
+  bool isValid() {
+    return _items.isNotEmpty;
+  }
+
+  void updateStatus(Status status) => _orderStatus = status;
 
   double get totalPrice => _items.fold(0, (sum, item) => sum + item.price);
+
+  @override
+  String toString() {
+    return 'Order(id: $id, customer ID: $customerId, date: $date, items: $items, status: $orderStatus, totalPrice: \$${totalPrice.toStringAsFixed(2)})';
+  }
 }
