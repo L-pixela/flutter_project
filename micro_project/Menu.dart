@@ -25,7 +25,7 @@ class MenuItem {
 
   @override
   String toString() {
-    return '\nItem ID: $id\n Name: $name\n Category: $category\n Price: \$$price';
+    return '\nItem ID: $id, Name: $name, Category: $category, Price: \$$price';
   }
 }
 
