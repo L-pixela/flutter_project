@@ -187,14 +187,14 @@ void main() {
 }
 
 // void main() {
-//   // Step 1: Create a customer
+//   // Create a customer
 //   Customer customer = Customer(1, "John Doe", "123-456-7890");
 
-//   // Step 2: Create a reservation
+//   // Create a reservation
 //   Reservation reservation =
 //       Reservation(1, customer.customerId, 5, DateTime.now(), 4);
 
-//   // Step 3: Create an order and link it to the reservation
+//   // Create an order and link it to the reservation
 //   Order order = Order(customer.customerId, 1, DateTime.now(), Status.Pending);
 //   Menu menu = Menu();
 //   MenuItem? item1 = menu.getItemById(1);
@@ -206,7 +206,7 @@ void main() {
 //   reservation.order = order;
 //   order.reservation = reservation;
 
-//   // Step 4: Update order status to Paid when completed
+//   // Update order status to Paid when completed
 //   order.updateStatus(Status.Paid);
 
 //   // Print details
