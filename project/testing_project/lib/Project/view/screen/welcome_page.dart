@@ -16,7 +16,6 @@ class WelcomePage extends StatelessWidget {
             context, MaterialPageRoute(builder: (context) => HomePage()));
       },
       child: Scaffold(
-        backgroundColor: Colors.lightGreenAccent,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,

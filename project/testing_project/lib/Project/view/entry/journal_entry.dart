@@ -16,7 +16,6 @@ class JournalEntry extends StatefulWidget {
 }
 
 class _JournalEntryState extends State<JournalEntry> {
-  final service = JournalService();
   final _formKey = GlobalKey<FormState>();
   String? title = '';
   String? content = '';

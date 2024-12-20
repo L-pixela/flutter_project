@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:testing_project/Project/database/data.dart';
+import 'package:provider/provider.dart';
 import 'package:testing_project/Project/model/journal.dart';
 import 'package:testing_project/Project/view/entry/journal_entry.dart';
 
@@ -13,10 +13,13 @@ class JournalUtil {
                 JournalEntry(journal: journal, isEditMode: index != null)));
 
     if (passedData != null) {
+      if (!context.mounted) return; // Check if the context is still mounted
+      final journalService =
+          Provider.of<JournalService>(context, listen: false);
       if (index == null) {
-        service.addJournal(journals, passedData);
+        journalService.addJournal(passedData);
       } else {
-        service.updateJournal(journals, passedData, index);
+        journalService.updateJournal(passedData, index);
       }
     }
   }

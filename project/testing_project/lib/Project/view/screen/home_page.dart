@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:testing_project/Project/database/data.dart';
 import 'package:testing_project/Project/widgets/utils.dart';
 
 import '../../model/journal.dart';
@@ -15,7 +16,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  JournalService service = JournalService();
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  JournalService service = JournalService(journals);
   List<Widget> myTabs = [
     MyTab(
       tabIcon: Icons.home,

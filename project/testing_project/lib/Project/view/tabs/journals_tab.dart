@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 import 'package:testing_project/Project/widgets/utils.dart';
 
 import '../../database/data.dart';
@@ -14,13 +15,24 @@ class JournalsTab extends StatefulWidget {
 }
 
 class _JournalsTabState extends State<JournalsTab> {
-  final JournalService service = JournalService();
   final String emptyJournal = "There is no journal entry";
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
   void _onDeleteJournal(Journal journal) {
-    setState(() {
-      service.removeJournal(journals, journal);
-    });
+    Provider.of<JournalService>(context, listen: false).removeJournal(journal);
+  }
+
+  void _onEditJournal(BuildContext context, Journal journal, int index) async {
+    await JournalUtil.onAddNewJournal(
+        context,
+        Provider.of<JournalService>(context, listen: false),
+        journals[index],
+        index);
+    setState(() {});
   }
 
   bool isMobile(BuildContext context) =>
@@ -28,37 +40,39 @@ class _JournalsTabState extends State<JournalsTab> {
 
   @override
   Widget build(BuildContext context) {
-    Widget content = Center(
-      child: Column(
-        children: [
-          Lottie.asset("assets/animation_gif/empty_journal_whale.json",
-              width: isMobile(context) ? 200 : 250,
-              height: isMobile(context) ? 200 : 250),
-          Text(
-            emptyJournal,
-            style: TextStyle(
-                fontSize: isMobile(context) ? 12 : 14, color: Colors.grey),
-          )
-        ],
-      ),
-    );
+    return Consumer<JournalService>(builder: (context, service, child) {
+      final journals = service.journals;
+      Widget content = Center(
+        child: Column(
+          children: [
+            Lottie.asset("assets/animation_gif/empty_journal_whale.json",
+                width: isMobile(context) ? 200 : 250,
+                height: isMobile(context) ? 200 : 250),
+            Text(
+              emptyJournal,
+              style: TextStyle(
+                  fontSize: isMobile(context) ? 12 : 14, color: Colors.grey),
+            )
+          ],
+        ),
+      );
 
-    if (journals.isNotEmpty) {
-      content = GridView.builder(
-          itemCount: journals.length,
-          padding: EdgeInsets.all(12),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: isMobile(context) ? 2 : 5),
-          itemBuilder: (context, index) {
-            return JournalGridTile(
-              journal: journals[index],
-              onDelete: () => _onDeleteJournal(journals[index]),
-              onEdit: () => JournalUtil.onAddNewJournal(
-                  context, service, journals[index], index),
-            );
-          });
-    }
-    return content;
+      if (journals.isNotEmpty) {
+        content = GridView.builder(
+            itemCount: journals.length,
+            padding: EdgeInsets.all(12),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: isMobile(context) ? 2 : 5),
+            itemBuilder: (context, index) {
+              return JournalGridTile(
+                journal: journals[index],
+                onDelete: () => _onDeleteJournal(journals[index]),
+                onEdit: () => _onEditJournal(context, journals[index], index),
+              );
+            });
+      }
+      return content;
+    });
   }
 }
 

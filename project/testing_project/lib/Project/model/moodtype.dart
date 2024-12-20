@@ -4,21 +4,21 @@ enum MoodType {
   happy(
       moodType: "Happy",
       icons: "assets/mood_emoji/happy.png",
-      color: Colors.yellow),
+      color: Colors.green),
   mad(moodType: "Mad", icons: "assets/mood_emoji/mad.webp", color: Colors.red),
   sad(moodType: "Sad", icons: "assets/mood_emoji/sad.png", color: Colors.blue),
   upset(
       moodType: "Upset",
       icons: "assets/mood_emoji/happy.png",
-      color: Colors.lightBlue),
+      color: Colors.yellowAccent),
   unfair(
       moodType: "Unfair",
       icons: "assets/mood_emoji/happy.png",
-      color: Colors.indigoAccent),
+      color: Colors.teal),
   neutral(
       moodType: "Neutral",
       icons: "assets/mood_emoji/happy.png",
-      color: Colors.blueGrey);
+      color: Colors.grey);
 
   final String moodType;
   final String icons;
