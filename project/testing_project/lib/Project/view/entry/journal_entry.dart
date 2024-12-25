@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../model/journal.dart';
 import '../../model/moodtype.dart';
-import '../../widgets/app_button.dart';
+import '../../widgets&utils/app_button.dart';
 
 class JournalEntry extends StatefulWidget {
   final Journal? journal;
@@ -75,7 +75,8 @@ class _JournalEntryState extends State<JournalEntry> {
                 TextFormField(
                   initialValue: title,
                   decoration: InputDecoration(
-                    border: InputBorder.none,
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.yellowAccent)),
                     hintText: 'Title',
                   ),
                   validator: validateTitle,

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:testing_project/Project/database/data.dart';
-import 'package:testing_project/Project/widgets/utils.dart';
+import 'package:testing_project/Project/view/screen/profile_page.dart';
+import 'package:testing_project/Project/widgets&utils/utils.dart';
 
+import '../../database/profile_data.dart';
 import '../../model/journal.dart';
-import '../../widgets/tabs.dart';
+import '../../widgets&utils/tabs.dart';
 import '../tabs/journals_tab.dart';
 import '../tabs/moodtracker_tab.dart';
 
@@ -26,13 +27,21 @@ class _HomePageState extends State<HomePage> {
     MyTab(
       tabIcon: Icons.home,
     ),
-    MyTab(tabIcon: Icons.mood)
+    MyTab(tabIcon: Icons.mood),
   ];
+
+  void _onTapToProfile(BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (ctx) => ProfilePage(
+                  profileData: myProfile,
+                )));
+  }
 
   void _onAddNewJournal(
       BuildContext context, Journal? journal, int? index) async {
     await JournalUtil.onAddNewJournal(context, service, journal, index);
-    setState(() {});
   }
 
   bool isMobile(BuildContext context) =>
@@ -47,6 +56,7 @@ class _HomePageState extends State<HomePage> {
             child: Align(
               alignment: Alignment.bottomRight,
               child: FloatingActionButton(
+                shape: CircleBorder(),
                 onPressed: () => _onAddNewJournal(context, null, null),
                 tooltip: 'Add Journal',
                 child: Icon(Icons.add),
@@ -54,19 +64,21 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           appBar: AppBar(
-            title: const Text('Home Page'),
+            title: const Text('Your Journal App'),
             centerTitle: true,
             automaticallyImplyLeading: false,
             backgroundColor: Colors.transparent,
             actions: [
               Padding(
-                padding: EdgeInsets.only(right: 25),
-                child: Icon(
-                  Icons.person,
-                  color: Colors.grey,
-                  size: 36,
-                ),
-              )
+                  padding: EdgeInsets.only(right: 25),
+                  child: IconButton(
+                    onPressed: () => _onTapToProfile(context),
+                    icon: Icon(
+                      Icons.person,
+                      color: Colors.grey,
+                      size: 36,
+                    ),
+                  ))
             ],
           ),
           body: Column(
@@ -103,52 +115,10 @@ class _HomePageState extends State<HomePage> {
                 // journal tab
                 JournalsTab(),
                 // mood tracker tab
-                MoodtrackerTab()
+                MoodtrackerTab(),
               ])),
             ],
           )),
-    );
-  }
-}
-
-class JournalTile extends StatelessWidget {
-  final Journal journal;
-  const JournalTile({super.key, required this.journal});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: journal.mood.color,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Flexible(
-              child: Image.asset(
-            journal.mood.icons,
-            width: 60,
-          )),
-          Expanded(
-              child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(journal.title),
-          )),
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 8, 15, 0),
-                child: Text(
-                  DateFormat.MMM().format(journal.date),
-                  style: TextStyle(),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 15, 8),
-                child: Text(DateFormat.d().format(journal.date)),
-              ),
-            ],
-          ),
-        ],
-      ),
     );
   }
 }

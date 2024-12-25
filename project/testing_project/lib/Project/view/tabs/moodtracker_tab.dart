@@ -5,7 +5,7 @@ import 'package:testing_project/Project/database/data.dart';
 import 'package:testing_project/Project/model/journal.dart';
 import 'package:testing_project/Project/model/moodtype.dart';
 
-import '../../widgets/mood_indicator.dart';
+import '../../widgets&utils/mood_indicator.dart';
 
 class MoodtrackerTab extends StatefulWidget {
   const MoodtrackerTab({super.key});
@@ -17,6 +17,20 @@ class MoodtrackerTab extends StatefulWidget {
 class _MoodtrackerTabState extends State<MoodtrackerTab> {
   final JournalService service = JournalService(journals);
   final String emptyJournal = "No Journal Data Found!";
+  MoodType? selectedMood;
+
+  void sortJournals(MoodType mood) {
+    selectedMood = mood;
+    journals.sort((a, b) {
+      if (a.mood == mood && b.mood != mood) {
+        return -1;
+      } else if (a.mood != mood && b.mood == mood) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+  }
 
   @override
   void initState() {
@@ -103,7 +117,7 @@ class _MoodtrackerTabState extends State<MoodtrackerTab> {
                     Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: Text(
-                        'Your Mood Tracker: ',
+                        'Your Mood Data: ',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: isMobile(context) ? 16 : 26),

@@ -75,22 +75,17 @@ class JournalService extends ChangeNotifier {
     journals[index] = journal;
     notifyListeners();
   }
+
+  void sortJournal(MoodType mood) {
+    journals.sort((a, b) {
+      if (a.mood == mood && b.mood != mood) {
+        return -1;
+      } else if (a.mood != mood && b.mood == mood) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    notifyListeners();
+  }
 }
-
-// void main() {
-//   // JournalService journalService = JournalService();
-//   Journal journals1 = Journal(title: "A", content: "AAA", mood: MoodType.happy);
-//   Journal journals2 = Journal(title: "B", content: "AAA", mood: MoodType.happy);
-//   Journal journals3 = Journal(title: "C", content: "AAA", mood: MoodType.mad);
-
-//   List<Journal> journals = [];
-//   journals.add(journals1);
-//   journals.add(journals2);
-//   journals.add(journals3);
-
-//   // Map<MoodType, int> moodCounts = journalService.moodCount(journals);
-
-//   moodCounts.forEach((mood, count) {
-//     print("${mood.moodType} : $count");
-//   });
-// }
